@@ -187,10 +187,10 @@ setError(error?.response?.data || "SOMETHING WENT WRONG");
               <div className="label">
                 <span className="label-text">About</span>
               </div>
-              <input
+              <textarea
                 value={about}
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="textarea text-bordered "
                 onChange={(e) => setAbout(e.target.value)}
               />
             </motion.label>
