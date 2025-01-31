@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const user=useSelector((store)=>store.user);
@@ -19,13 +20,13 @@ const NavBar = () => {
     >
       {/* Navbar Title */}
       <div className="flex-1">
-        <motion.a
+        <Link
+        to="/"
           className="btn btn-ghost text-xl"
-          whileHover={{ scale: 1.1, color: "#f43f5e" }}
-          whileTap={{ scale: 0.9 }}
+          
         >
           DEV TINDER 🧑‍💻
-        </motion.a>
+        </Link>
       </div>
 
       {/* Avatar and Dropdown */}
@@ -62,7 +63,7 @@ const NavBar = () => {
             
               className="cursor-pointer rounded-lg p-2"
             >
-              <a>Profile</a>
+              <Link to="/profile">Proflie</Link>
             </li>
 
             {/* Settings */}

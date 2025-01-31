@@ -1,9 +1,17 @@
-import { Outlet } from "react-router-dom";
+import {  Outlet, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import axios from "axios";
+import { BASEURL } from "../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import {addUser} from "../utils/userSlice"
+import { useEffect } from "react";
 
 const Body = () => {
+  const navigate=useNavigate();
+  const dispact=useDispatch();
+  const userData=useSelector((store)=>store.user);
   // Animation Variants for the Background
   const backgroundVariants = {
     animate: {
@@ -15,6 +23,30 @@ const Body = () => {
       },
     },
   };
+  const fetchUser=async()=>{
+    try {
+      if(userData) return;
+      const res=await axios.get(BASEURL+"/profile/view",{
+        withCredentials:true,
+      })
+      dispact(addUser(res.data));
+    } 
+    catch (error) {
+      if(error.status===401){
+        navigate("/login")
+      }
+      console.log(error);
+      
+    }
+  }
+useEffect(()=>{
+  if (!userData) {
+    fetchUser();
+  }
+    
+}, []);
+
+
 
   return (
     <div className="relative min-h-screen">
@@ -30,7 +62,6 @@ const Body = () => {
         animate="animate"
       ></motion.div>
 
-      {/* Fixed Content */}
       <NavBar />
       <div className="flex flex-col justify-between">
         <Outlet />
