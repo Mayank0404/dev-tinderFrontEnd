@@ -1,16 +1,32 @@
+import axios from "axios";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { removeUser } from "../utils/userSlice";
 const NavBar = () => {
   const user=useSelector((store)=>store.user);
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   console.log(user);
   
   const navbarVariants = {
     hidden: { y: -50, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.6, type: "spring" } },
   };
-
+  const logoutHandler=async()=>{
+    try {
+      await axios.post("http://localhost:7777/logout",{},{
+        withCredentials:true,
+      })
+      dispatch(removeUser());
+      return navigate("/login");
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+  
   return (
     <motion.div
       className="navbar bg-base-300 shadow-sm"
@@ -79,7 +95,7 @@ const NavBar = () => {
             
               className="cursor-pointer rounded-lg p-2"
             >
-              <a>Logout</a>
+              <button onClick={logoutHandler}>Logout</button>
             </li>
           </ul>
         </div>

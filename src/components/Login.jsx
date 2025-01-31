@@ -12,6 +12,7 @@ const Login = () => {
 
    const[emailId,setEmailId]=useState("mayank@gmail.com");
   const[password,setPassword]=useState("Mayank@1234");
+  const [error,setError]=useState("");
   const dispatch=useDispatch();
   const handleLogin=async ()=>{
     try {
@@ -23,8 +24,7 @@ const Login = () => {
       dispatch(addUser(res.data)); //setting data in my store using redux toolkit
       navigate("/")
     } catch (error) {
-      console.log(error);
-      
+setError(error?.response?.data || "SOMETHING WENT WRONG");
     }
   }
  
@@ -106,7 +106,7 @@ const Login = () => {
               </label>
             </motion.div>
           </div>
-
+          <p className="text-red-500">{error}</p>
           {/* Button with Hover and Tap Animations */}
           <div className="card-actions justify-center">
             <motion.button
