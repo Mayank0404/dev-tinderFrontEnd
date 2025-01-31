@@ -64,9 +64,14 @@ useEffect(()=>{
 
       <NavBar />
       <div className="flex flex-col justify-between">
+        <div className="min-h-screen">
         <Outlet />
+        </div>
+        
       </div>
+      <div >
       <Footer />
+      </div>
     </div>
   );
 };
