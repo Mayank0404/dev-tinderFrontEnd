@@ -86,7 +86,7 @@ const NavBar = () => {
              
               className="cursor-pointer rounded-lg p-2"
             >
-              <a>Settings</a>
+              <Link to="/connections">Connections</Link>
             </li>
 
             {/* Logout */}
