@@ -81,12 +81,20 @@ const NavBar = () => {
               <Link to="/profile">Proflie</Link>
             </li>
 
-            {/* Settings */}
+            {/* Connections */}
             <li
              
               className="cursor-pointer rounded-lg p-2"
             >
               <Link to="/connections">Connections</Link>
+            </li>
+            {/* Requests */}
+
+            <li
+             
+              className="cursor-pointer rounded-lg p-2"
+            >
+              <Link to="/requests">Requests</Link>
             </li>
 
             {/* Logout */}

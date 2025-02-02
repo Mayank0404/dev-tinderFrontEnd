@@ -30,7 +30,7 @@ const Connections = () => {
   return (
     <div className="flex flex-col items-center my-10">
       <h1 className="text-3xl font-bold text-zinc-800 mb-6">Connections</h1>
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-xl">
         {connections.map((connection) => (
           <div key={connection._id} className="my-5 p-4 bg-white rounded-xl shadow-md border border-gray-200">
             <div className="flex items-center gap-4">
