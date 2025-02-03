@@ -6,28 +6,50 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../utils/constants";
 
-
 const Login = () => {
- const navigate=useNavigate();
+  const navigate = useNavigate();
 
-   const[emailId,setEmailId]=useState("mayank@gmail.com");
-  const[password,setPassword]=useState("Mayank@1234");
-  const [error,setError]=useState("");
-  const dispatch=useDispatch();
-  const handleLogin=async ()=>{
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
+
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
+  const handleLogin = async () => {
     try {
-      const res=await axios.post(BASEURL+"/login",{
-        emailId,password
-      },{
-        withCredentials:true,
-      })
-      dispatch(addUser(res.data)); //setting data in my store using redux toolkit
-      navigate("/")
+      const res = await axios.post(
+        BASEURL + "/login",
+        {
+          emailId,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(addUser(res.data)); // setting data in the store using Redux Toolkit
+      navigate("/");
     } catch (error) {
-setError(error?.response?.data || "SOMETHING WENT WRONG");
+      setError(error?.response?.data || "SOMETHING WENT WRONG");
+    }
+  };
+  const handleSignup=async()=>{
+   try {const res=await axios.post(BASEURL+"/signup",{
+      emailId,firstName,lastName,password
+    },{
+      withCredentials:true
+    })
+  dispatch(addUser(res.data.data)); 
+  return navigate("/profile")
+  }
+   catch (error) {
+      setError(error?.response?.data || "SOMETHING WENT WRONG");
+      
     }
   }
- 
   // Animation Variants
   const cardVariants = {
     hidden: { opacity: 0, y: -50 },
@@ -59,7 +81,7 @@ setError(error?.response?.data || "SOMETHING WENT WRONG");
       >
         <div className="card-body">
           {/* Card Title */}
-          <h2 className="card-title justify-center">LOGIN</h2>
+          <h2 className="card-title justify-center">{isLoginForm?"LOGIN":"SIGNUP"}</h2>
           <div>
             {/* Email Field */}
             <motion.label
@@ -76,12 +98,53 @@ setError(error?.response?.data || "SOMETHING WENT WRONG");
                 type="text"
                 className="input input-bordered w-full max-w-xs"
                 value={emailId}
-                onChange={(e)=>{
+                onChange={(e) => {
                   setEmailId(e.target.value);
                 }}
-
               />
             </motion.label>
+
+            {/* FirstName */}
+            {!isLoginForm &&<motion.label
+              className="form-control w-full max-w-xs py-4"
+              custom={1} // Delay for stagger effect
+              variants={fieldVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <div className="label">
+                <span className="label-text">First Name</span>
+              </div>
+              <input
+                type="text"
+                className="input input-bordered w-full max-w-xs"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+            </motion.label>}
+
+            {/* LastName */}
+           { !isLoginForm&& <motion.label
+              className="form-control w-full max-w-xs py-4"
+              custom={1} // Delay for stagger effect
+              variants={fieldVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <div className="label">
+                <span className="label-text">Last Name</span>
+              </div>
+              <input
+                type="text"
+                className="input input-bordered w-full max-w-xs"
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+              />
+            </motion.label>}
 
             {/* Password Field */}
             <motion.div
@@ -99,8 +162,8 @@ setError(error?.response?.data || "SOMETHING WENT WRONG");
                   type="password"
                   className="input input-bordered w-full max-w-xs"
                   value={password}
-                  onChange={(e)=>{
-                    setPassword(e.target.value)
+                  onChange={(e) => {
+                    setPassword(e.target.value);
                   }}
                 />
               </label>
@@ -110,15 +173,19 @@ setError(error?.response?.data || "SOMETHING WENT WRONG");
           {/* Button with Hover and Tap Animations */}
           <div className="card-actions justify-center">
             <motion.button
-            onClick={handleLogin}
+              onClick={isLoginForm?handleLogin:handleSignup}
               className="btn btn-primary"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
             >
-              LOGIN
+              {isLoginForm?"LOGIN":"SIGNUP"}
             </motion.button>
           </div>
+          <p 
+           onClick={() => setIsLoginForm((value) => !value)}
+          className="text-gray-100 m-auto cursor-pointer my-2">{isLoginForm?"New User ? SignUp Here":"Already Have an account ? Login Here"}</p>
+
         </div>
       </motion.div>
     </div>

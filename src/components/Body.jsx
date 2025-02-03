@@ -55,7 +55,8 @@ useEffect(()=>{
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, #ffafbd 0%, #ffc3a0 25%, #2193b0 50%, #6dd5ed 75%, #cc2b5e 100%)",
+  "linear-gradient(135deg, #2c3e50 0%, #34495e 25%, #1abc9c 50%, #16a085 75%, #2c3e50 100%)",
+
           backgroundSize: "300% 300%", // Larger size for the gradient to move
         }}
         variants={backgroundVariants}

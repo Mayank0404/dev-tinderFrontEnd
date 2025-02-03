@@ -31,7 +31,9 @@ useEffect(()=>{
 getFeed(); 
 },[])
 if(!feed) return;
-if(feed.length<=0) return <h1>NO MORE USERS</h1>
+if(feed.length<=0) 
+      return <h1 className="text-center text-xl font-semibold text-gray-700 my-5">No Connections Found</h1>;
+
   return  (
     feed &&(
     <div className="flex justify-center my-10" >
