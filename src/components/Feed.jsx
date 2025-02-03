@@ -30,12 +30,16 @@ const Feed = () => {
 useEffect(()=>{
 getFeed(); 
 },[])
-  return feed && (
+if(!feed) return;
+if(feed.length<=0) return <h1>NO MORE USERS</h1>
+  return  (
+    feed &&(
     <div className="flex justify-center my-10" >
     
     <UserCard user={feed[0]}/>
     </div>
   )
+)
 }
 
 export default Feed

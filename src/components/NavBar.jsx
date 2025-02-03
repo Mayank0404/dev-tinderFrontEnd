@@ -78,7 +78,7 @@ const NavBar = () => {
             
               className="cursor-pointer rounded-lg p-2"
             >
-              <Link to="/profile">Proflie</Link>
+              <Link to="/profile">Profile</Link>
             </li>
 
             {/* Connections */}
