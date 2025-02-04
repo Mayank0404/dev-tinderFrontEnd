@@ -36,23 +36,27 @@ const Login = () => {
       setError(error?.response?.data || "SOMETHING WENT WRONG");
     }
   };
-  const handleSignup=async()=>{
-   try {const res=await axios.post(BASEURL+"/signup",{
-      emailId,firstName,lastName,password
-    },{
-      withCredentials:true
-    })
-  dispatch(addUser(res.data.data)); 
-  return navigate("/profile")
-  }
-   catch (error) {
+
+  const handleSignup = async () => {
+    try {
+      const res = await axios.post(BASEURL + "/signup", {
+        emailId,
+        firstName,
+        lastName,
+        password,
+      }, {
+        withCredentials: true,
+      });
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (error) {
       setError(error?.response?.data || "SOMETHING WENT WRONG");
-      
     }
-  }
+  };
+
   // Animation Variants
   const cardVariants = {
-    hidden: { opacity: 0, y: -50 },
+    hidden: { opacity: 1, y: -50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
@@ -74,14 +78,14 @@ const Login = () => {
     <div className="flex justify-center my-10">
       {/* Animate the Card */}
       <motion.div
-        className="card bg-base-300 w-96 shadow-sm"
+        className="card bg-gray-800 w-96 shadow-sm bg-opacity-50 opacity-100"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
       >
         <div className="card-body">
           {/* Card Title */}
-          <h2 className="card-title justify-center">{isLoginForm?"LOGIN":"SIGNUP"}</h2>
+          <h2 className="card-title justify-center">{isLoginForm ? "LOGIN" : "SIGNUP"}</h2>
           <div>
             {/* Email Field */}
             <motion.label
@@ -105,46 +109,50 @@ const Login = () => {
             </motion.label>
 
             {/* FirstName */}
-            {!isLoginForm &&<motion.label
-              className="form-control w-full max-w-xs py-4"
-              custom={1} // Delay for stagger effect
-              variants={fieldVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <div className="label">
-                <span className="label-text">First Name</span>
-              </div>
-              <input
-                type="text"
-                className="input input-bordered w-full max-w-xs"
-                value={firstName}
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                }}
-              />
-            </motion.label>}
+            {!isLoginForm && (
+              <motion.label
+                className="form-control w-full max-w-xs py-4"
+                custom={1} // Delay for stagger effect
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <div className="label">
+                  <span className="label-text">First Name</span>
+                </div>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-xs"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                  }}
+                />
+              </motion.label>
+            )}
 
             {/* LastName */}
-           { !isLoginForm&& <motion.label
-              className="form-control w-full max-w-xs py-4"
-              custom={1} // Delay for stagger effect
-              variants={fieldVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <div className="label">
-                <span className="label-text">Last Name</span>
-              </div>
-              <input
-                type="text"
-                className="input input-bordered w-full max-w-xs"
-                value={lastName}
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                }}
-              />
-            </motion.label>}
+            { !isLoginForm && (
+              <motion.label
+                className="form-control w-full max-w-xs py-4"
+                custom={1} // Delay for stagger effect
+                variants={fieldVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <div className="label">
+                  <span className="label-text">Last Name</span>
+                </div>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-xs"
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
+              </motion.label>
+            )}
 
             {/* Password Field */}
             <motion.div
@@ -173,19 +181,21 @@ const Login = () => {
           {/* Button with Hover and Tap Animations */}
           <div className="card-actions justify-center">
             <motion.button
-              onClick={isLoginForm?handleLogin:handleSignup}
+              onClick={isLoginForm ? handleLogin : handleSignup}
               className="btn btn-primary"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
             >
-              {isLoginForm?"LOGIN":"SIGNUP"}
+              {isLoginForm ? "LOGIN" : "SIGNUP"}
             </motion.button>
           </div>
-          <p 
-           onClick={() => setIsLoginForm((value) => !value)}
-          className="text-gray-100 m-auto cursor-pointer my-2">{isLoginForm?"New User ? SignUp Here":"Already Have an account ? Login Here"}</p>
-
+          <p
+            onClick={() => setIsLoginForm((value) => !value)}
+            className="text-gray-100 m-auto cursor-pointer my-2"
+          >
+            {isLoginForm ? "New User ? SignUp Here" : "Already Have an account ? Login Here"}
+          </p>
         </div>
       </motion.div>
     </div>

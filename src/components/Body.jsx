@@ -34,7 +34,10 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (error) {
       if (error.status === 401) {
+        console.log(error);
+        
         navigate("/login");
+
       }
       console.log(error);
     }
