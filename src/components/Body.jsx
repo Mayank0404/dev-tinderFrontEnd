@@ -19,11 +19,12 @@ const Body = () => {
   // Animation Variants for the Background
   const backgroundVariants = {
     animate: {
-      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+      backgroundPosition: ["0% 0%", "50% 50%", "100% 100%", "0% 0%"], // Slow movement across the background
+      scale: [1, 1.02, 1], // Slight zoom effect
       transition: {
-        duration: isMobile ? 20 : 1, // Slower animation on mobile
+        duration: 60, // Slower transition (60 seconds)
         repeat: Infinity,
-        ease: "linear",
+        ease: "easeInOut",
       },
     },
   };
@@ -58,7 +59,7 @@ const Body = () => {
             "url('https://img.freepik.com/free-vector/frozen-arctic-cracked-ice-composition-chunks-melting-ice-sea-against-background-clouds-sunshine-vector-illustration_1284-81849.jpg?t=st=1738594227~exp=1738597827~hmac=b9034b6790121df98d2e93b3a788a62dffe39cacc2cdf315b193ac4f80979c12&w=1380')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "fixed", // Optional for parallax effect
+          backgroundAttachment: "fixed", // Parallax effect
         }}
         variants={backgroundVariants}
         animate="animate"
