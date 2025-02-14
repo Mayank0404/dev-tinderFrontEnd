@@ -19,12 +19,11 @@ const Body = () => {
   // Animation Variants for the Background
   const backgroundVariants = {
     animate: {
-      backgroundPosition: ["0% 0%", "50% 50%", "100% 100%", "0% 0%"], // Slow movement across the background
-      scale: [1, 1.02, 1], // Slight zoom effect
+      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
       transition: {
-        duration: 60, // Slower transition (60 seconds)
+        duration: isMobile ? 40 : 30, // Slow animation
         repeat: Infinity,
-        ease: "easeInOut",
+        ease: "linear",
       },
     },
   };
@@ -37,9 +36,7 @@ const Body = () => {
       });
       dispatch(addUser(res.data));
     } catch (error) {
-      if (error) {
-        navigate("/login");
-      }
+      navigate("/login");
     }
   };
 
@@ -47,31 +44,37 @@ const Body = () => {
     if (!userData) {
       fetchUser();
     }
-  }, []); // Empty dependency to run once
+  }, []); // Run once on mount
 
   return (
     <div className="relative min-h-screen">
+
       {/* Background Animation */}
       <motion.div
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            "url('https://img.freepik.com/free-vector/frozen-arctic-cracked-ice-composition-chunks-melting-ice-sea-against-background-clouds-sunshine-vector-illustration_1284-81849.jpg?t=st=1738594227~exp=1738597827~hmac=b9034b6790121df98d2e93b3a788a62dffe39cacc2cdf315b193ac4f80979c12&w=1380')",
+            "url('https://img.freepik.com/free-vector/frozen-arctic-cracked-ice-composition-chunks-melting-ice-sea-against-background-clouds-sunshine-vector-illustration_1284-81849.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "fixed", // Parallax effect
+          backgroundAttachment: "fixed",
         }}
         variants={backgroundVariants}
         animate="animate"
       ></motion.div>
 
-      {/* Layout Structure */}
-      <NavBar />
-      <div className="flex flex-col justify-between">
+      {/* Fixed Navbar */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+        <NavBar />
+      </div>
+
+      {/* Add padding so content doesn't hide under navbar */}
+      <div className="flex flex-col justify-between pt-20">
         <div className="min-h-screen">
           <Outlet />
         </div>
       </div>
+
       <Footer />
     </div>
   );
