@@ -1,5 +1,4 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import axios from "axios";
@@ -13,21 +12,6 @@ const Body = () => {
   const dispatch = useDispatch();
   const userData = useSelector((store) => store.user);
 
-  // Check if device is mobile
-  const isMobile = window.innerWidth < 768;
-
-  // Animation Variants for the Background
-  const backgroundVariants = {
-    animate: {
-      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-      transition: {
-        duration: isMobile ? 40 : 30, // Slow animation
-        repeat: Infinity,
-        ease: "linear",
-      },
-    },
-  };
-
   const fetchUser = async () => {
     try {
       if (userData) return;
@@ -37,6 +21,8 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (error) {
       navigate("/login");
+      console.log(error);
+      
     }
   };
 
@@ -48,20 +34,19 @@ const Body = () => {
 
   return (
     <div className="relative min-h-screen">
+      {/* Background Image */}
+     <div
+  className="absolute inset-0 -z-10"
+  style={{
+    backgroundImage: `url(${"https://plus.unsplash.com/premium_photo-1680404114169-e254afa55a16?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    imageRendering: "crisp-edges"
+  }}
+></div>
 
-      {/* Background Animation */}
-      <motion.div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage:
-            "url('https://img.freepik.com/free-vector/frozen-arctic-cracked-ice-composition-chunks-melting-ice-sea-against-background-clouds-sunshine-vector-illustration_1284-81849.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-        variants={backgroundVariants}
-        animate="animate"
-      ></motion.div>
 
       {/* Fixed Navbar */}
       <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
@@ -81,4 +66,3 @@ const Body = () => {
 };
 
 export default Body;
-  

@@ -78,7 +78,7 @@ const Login = () => {
     <div className="flex justify-center my-10">
       {/* Animate the Card */}
       <motion.div
-        className="card bg-gray-800 w-96 shadow-sm bg-opacity-50 opacity-100"
+        className="card w-96 bg-base-100 shadow-sm"
         variants={cardVariants}
         initial="hidden"
         animate="visible"
@@ -192,7 +192,7 @@ const Login = () => {
           </div>
           <p
             onClick={() => setIsLoginForm((value) => !value)}
-            className="text-gray-100 m-auto cursor-pointer my-2"
+            className=" m-auto cursor-pointer my-2"
           >
             {isLoginForm ? "New User ? SignUp Here" : "Already Have an account ? Login Here"}
           </p>

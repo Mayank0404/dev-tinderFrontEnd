@@ -10,6 +10,7 @@ import Connection from "./components/Connection";
 import Requests from "./components/Requests";
 import SplashScreen from "./components/SplashScreen"; // Import the SplashScreen
 import { useState, useEffect } from "react";
+import Premium from "./components/Premium";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connection />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="/premium" element={<Premium/>} />
             </Route>
           </Routes>
         )}
